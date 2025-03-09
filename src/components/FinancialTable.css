@@ -62,3 +62,25 @@ caption {
   box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.5);
   outline: 0;
 }
+/* Wrap table in a scrollable container */
+@media screen and (max-width: 768px) {
+  [role="region"][aria-labelledby][tabindex] {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    display: block;
+  }
+
+  table {
+    display: block;
+    width: max-content; /* Ensures table doesn't shrink */
+    min-width: 100%; /* Ensures it expands if needed */
+    overflow-x: auto;
+  }
+
+  table thead th {
+    white-space: nowrap; /* Prevents headers from breaking */
+  }
+
+  table tbody th {
+    min-width: 150px; /* Ensures first column stays readable */
+  }
+}
