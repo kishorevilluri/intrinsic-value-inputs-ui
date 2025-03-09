@@ -36,6 +36,30 @@ const metricCategories = {
   ]
 };
 
+const formatNumber = (num, name) => {
+  if (!num) return "-";
+  console.log(name)
+  if(name === "Tax Rate") return num;
+
+  if (num >= 1_000_000_000) {
+    // Convert to Billions ($B)
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1,
+    }).format(num / 1_000_000_000) + "B";
+  } else {
+    // Convert to Millions ($M)
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1,
+    }).format(num / 1_000_000) + "M";
+  }
+};
+
 const FinancialTable = ({ data }) => {
   if (!data) return <p className="text-center">No data available.</p>;
 
@@ -71,7 +95,7 @@ const FinancialTable = ({ data }) => {
                     <th>{displayName}</th>
                     {years.map((year) => (
                       <td key={year}>
-                        {metricKeys.map((key) => data[year]?.[key]).find((val) => val !== undefined) || "N/A"}
+                        {formatNumber(metricKeys.map((key) => data[year]?.[key]).find((val) => val !== undefined), displayName) || "N/A"}
                       </td>
                     ))}
                   </tr>
